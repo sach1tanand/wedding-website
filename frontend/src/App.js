@@ -4,6 +4,7 @@ import 'react-photo-view/dist/react-photo-view.css';
 import React, { useEffect, useState } from 'react';
 import * as api from './api';
 import './styles/global.css';
+import { deletePhoto } from './api';
 
 const WEDDING_DATE = '2026-04-29T18:00:00+05:30';
 const EVENTS = [
@@ -253,6 +254,18 @@ function Media({ notify }) {
       notify(error.response?.data?.error || 'Video submit failed.');
     }
   };
+const handleDelete = async (id) => {
+  if (!window.confirm("Delete this photo?")) return;
+
+  try {
+    await deletePhoto(id);
+    setPhotos(prev => prev.filter(p => p._id !== id));
+    notify("Photo deleted");
+  } catch (err) {
+    console.error(err);
+    notify("Delete failed");
+  }
+};
  
  useEffect(() => {
   const handleHashChange = () => {
@@ -339,6 +352,14 @@ function Media({ notify }) {
 >
   ⬇ Download
 </button>
+{sessionStorage.getItem("adminToken") && (
+  <button
+    onClick={() => handleDelete(photo._id)}
+    className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 text-xs rounded"
+  >
+    🗑
+  </button>
+)}
 </div>
             </PhotoView>
           ))}
@@ -509,6 +530,36 @@ export default function App() {
   const [notif, setNotif] = useState('');
   return (
     <div className="app">
+<div style={{ position: "fixed", top: 10, right: 10, zIndex: 9999 }}>
+  {!sessionStorage.getItem("adminToken") ? (
+    <button
+      onClick={() => {
+        const pw = prompt("Enter admin password");
+        if (!pw) return;
+
+        api.adminLogin(pw)
+          .then(res => {
+            sessionStorage.setItem("adminToken", res.data.token);
+            alert("Admin logged in ✅");
+            window.location.reload();
+          })
+          .catch(() => alert("Wrong password ❌"));
+      }}
+    >
+      Admin Login
+    </button>
+  ) : (
+    <button
+      onClick={() => {
+        sessionStorage.removeItem("adminToken");
+        alert("Logged out");
+        window.location.reload();
+      }}
+    >
+      Logout
+    </button>
+  )}
+</div>
       <Notification msg={notif} onClose={() => setNotif('')} />
       <Navbar />
       <Hero />
