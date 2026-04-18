@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import * as api from './api';
 import './styles/global.css';
 import { deletePhoto } from './api';
-import * as api from "./api";
 
 const WEDDING_DATE = '2026-04-29T18:00:00+05:30';
 const EVENTS = [
