@@ -75,6 +75,31 @@ textarea{font-family:'Jost',sans-serif;resize:vertical}
   padding:.75rem 1.8rem;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;
   transition:all .2s}
 .btn-outline:hover{background:var(--gold);color:#fff}
+.admin-btn {
+  background: transparent;
+  border: 1px solid #c8a96a;
+  color: #c8a96a;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-btn:hover {
+  background: #c8a96a;
+  color: white;
+}
+
+.admin-btn.logout {
+  border-color: #a94442;
+  color: #a94442;
+}
+
+.admin-btn.logout:hover {
+  background: #a94442;
+  color: white;
+}
 
 /* ── SECTION BASE ── */
 .section{position:relative;z-index:1}

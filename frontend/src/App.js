@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import * as api from './api';
 import './styles/global.css';
 import { deletePhoto } from './api';
+import * as api from "./api";
 
 const WEDDING_DATE = '2026-04-29T18:00:00+05:30';
 const EVENTS = [
@@ -37,26 +38,82 @@ function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const links = [['#story', 'About'], ['#schedule', 'Events'], ['#location', 'Venue'], ['#media', 'Gallery'], ['#rsvp', 'RSVP'], ['#guestbook', 'Blessings']];
+  const links = [
+    ['#story', 'About'],
+    ['#schedule', 'Events'],
+    ['#location', 'Venue'],
+    ['#media', 'Gallery'],
+    ['#rsvp', 'RSVP'],
+    ['#guestbook', 'Blessings']
+  ];
 
   return (
     <>
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+        
         <div className="nav-logo">D &amp; A</div>
-        <ul className="nav-links">
-          {links.map(([href, label]) => <li key={href}><a href={href}>{label}</a></li>)}
-        </ul>
-        <button className="hamburger btn-icon" style={{ border: 'none', background: 'none', width: 'auto', height: 'auto' }} onClick={() => setOpen((v) => !v)}>
-          <span /><span /><span />
-        </button>
+
+        <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+
+          <ul className="nav-links">
+            {links.map(([href, label]) => (
+              <li key={href}><a href={href}>{label}</a></li>
+            ))}
+          </ul>
+
+          {/* ADMIN BUTTON */}
+          {!sessionStorage.getItem("adminToken") ? (
+            <button
+              onClick={() => {
+                const pw = prompt("Enter admin password");
+                if (!pw) return;
+
+                api.adminLogin(pw)
+                  .then(res => {
+                    sessionStorage.setItem("adminToken", res.data.token);
+                    alert("Admin logged in ✅");
+                    window.location.reload();
+                  })
+                  .catch(() => alert("Wrong password ❌"));
+              }}
+              className="admin-btn"
+            >
+              Admin
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                sessionStorage.removeItem("adminToken");
+                window.location.reload();
+              }}
+              className="admin-btn logout"
+            >
+              Logout
+            </button>
+          )}
+
+          <button
+            className="hamburger btn-icon"
+            style={{ border: 'none', background: 'none', width: 'auto', height: 'auto' }}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span /><span /><span />
+          </button>
+
+        </div>
+
       </nav>
+
       <div className={`mobile-nav ${open ? 'open' : ''}`}>
-        {links.map(([href, label]) => <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>)}
+        {links.map(([href, label]) => (
+          <a key={href} href={href} onClick={() => setOpen(false)}>
+            {label}
+          </a>
+        ))}
       </div>
     </>
   );
 }
-
 function Hero() {
   const [cd, setCd] = useState({ d: '--', h: '--', m: '--', s: '--' });
 
@@ -530,7 +587,6 @@ export default function App() {
   const [notif, setNotif] = useState('');
   return (
     <div className="app">
-<div style={{ position: "fixed", top: 10, right: 10, zIndex: 9999 }}>
   {!sessionStorage.getItem("adminToken") ? (
     <button
       onClick={() => {
