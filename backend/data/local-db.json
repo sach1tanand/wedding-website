@@ -1,0 +1,39 @@
+{
+  "photos": [
+    {
+      "_id": "bb771edc-9df3-4d96-9eb6-37bda844412f",
+      "publicId": "1776437393235-4e3542a9-64b2-463e-98f6-171acabe9dc9.png",
+      "url": "/uploads/photos/1776437393235-4e3542a9-64b2-463e-98f6-171acabe9dc9.png",
+      "thumbUrl": "/uploads/photos/1776437393235-4e3542a9-64b2-463e-98f6-171acabe9dc9.png",
+      "bytes": 186648,
+      "category": "sangeet",
+      "uploadedBy": "Guest",
+      "likes": 0,
+      "approved": true,
+      "createdAt": "2026-04-17T14:49:53.239Z"
+    },
+    {
+      "_id": "3adcb091-6eef-4641-9451-42a7c7f8bd94",
+      "publicId": "1776437363510-f397c4ee-7472-4ca2-824a-bcf96c192e49.png",
+      "url": "/uploads/photos/1776437363510-f397c4ee-7472-4ca2-824a-bcf96c192e49.png",
+      "thumbUrl": "/uploads/photos/1776437363510-f397c4ee-7472-4ca2-824a-bcf96c192e49.png",
+      "bytes": 155244,
+      "category": "all",
+      "uploadedBy": "Guest",
+      "likes": 0,
+      "approved": true,
+      "createdAt": "2026-04-17T14:49:23.522Z"
+    }
+  ],
+  "rsvps": [],
+  "videos": [],
+  "wishes": [
+    {
+      "_id": "1db34458-4bb7-4f15-9efb-6a45a3544a29",
+      "name": "Family Blessings",
+      "message": "Wishing Deepak and Awantika a joyful married life filled with love and togetherness.",
+      "approved": true,
+      "createdAt": "2026-04-17T14:48:42.257Z"
+    }
+  ]
+}

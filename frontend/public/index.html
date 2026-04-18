@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fdf6ee" />
+    <meta name="description" content="Deepak and Awantika wedding celebration on April 29, 2026 in Pirnagar, Begusarai, Bihar" />
+    <meta property="og:title" content="Deepak and Awantika Wedding" />
+    <meta property="og:description" content="Join us for the wedding celebrations from April 27 to April 29, 2026" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Dancing+Script:wght@400;600;700&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
+    <title>Deepak and Awantika Wedding</title>
+    <style>
+      #root-loader {
+        position: fixed; inset: 0; background: #fdf6ee;
+        display: flex; align-items: center; justify-content: center;
+        z-index: 9999; transition: opacity 0.5s;
+      }
+      #root-loader .rl-names {
+        font-family: 'Dancing Script', cursive; font-size: 2.5rem;
+        color: #c9a96e; animation: rlPulse 1.2s ease-in-out infinite;
+      }
+      @keyframes rlPulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+    </style>
+  </head>
+  <body>
+    <div id="root-loader"><div class="rl-names">Deepak &amp; Awantika</div></div>
+    <div id="root"></div>
+    <script>
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const l = document.getElementById('root-loader');
+          if (l) { l.style.opacity = '0'; setTimeout(() => l.remove(), 500); }
+        }, 600);
+      });
+    </script>
+  </body>
+</html>
