@@ -3,7 +3,6 @@ const router  = express.Router();
 const jwt     = require('jsonwebtoken');
 const RSVP    = require('../models/RSVP');
 const Wish    = require('../models/Wish');
-const Photo   = require('../models/Photo');
 const Image   = require('../models/Image');
 const Video   = require('../models/Video');
 const cloudinary = require('../config/cloudinary');
@@ -104,7 +103,7 @@ router.get('/wishes', authAdmin, async (req, res) => {
 // DELETE /api/admin/photos/:id
 router.delete('/photos/:id', authAdmin, async (req, res) => {
   try {
-    const photo = await Photo.findById(req.params.id);
+    const photo = await Image.findById(req.params.id);
     if (!photo) return res.status(404).json({ error: 'Not found' });
     await cloudinary.uploader.destroy(photo.publicId);
     await photo.deleteOne();
