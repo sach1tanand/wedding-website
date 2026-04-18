@@ -4,7 +4,6 @@ import 'react-photo-view/dist/react-photo-view.css';
 import React, { useEffect, useState } from 'react';
 import * as api from './api';
 import './styles/global.css';
-import { deletePhoto } from './api';
 
 const WEDDING_DATE = '2026-04-29T18:00:00+05:30';
 const EVENTS = [
@@ -314,7 +313,7 @@ const handleDelete = async (id) => {
   if (!window.confirm("Delete this photo?")) return;
 
   try {
-    await deletePhoto(id);
+    await api.deletePhoto(id);
     setPhotos(prev => prev.filter(p => p._id !== id));
     notify("Photo deleted");
   } catch (err) {
@@ -584,38 +583,9 @@ function Footer() {
 
 export default function App() {
   const [notif, setNotif] = useState('');
-  return (
+return (
+  <>
     <div className="app">
-  {!sessionStorage.getItem("adminToken") ? (
-    <button
-      onClick={() => {
-        const pw = prompt("Enter admin password");
-        if (!pw) return;
-
-        api.adminLogin(pw)
-          .then(res => {
-            sessionStorage.setItem("adminToken", res.data.token);
-            alert("Admin logged in ✅");
-            window.location.reload();
-          })
-          .catch(() => alert("Wrong password ❌"));
-      }}
-    >
-      Admin Login
-    </button>
-  ) : (
-    <button
-      onClick={() => {
-        sessionStorage.removeItem("adminToken");
-        alert("Logged out");
-        window.location.reload();
-      }}
-    >
-      Logout
-    </button>
-  )}
-</div>
-      <Notification msg={notif} onClose={() => setNotif('')} />
       <Navbar />
       <Hero />
       <Story />
@@ -626,5 +596,7 @@ export default function App() {
       <Guestbook notify={setNotif} />
       <Footer />
     </div>
-  );
-}
+
+    <Notification msg={notif} onClose={() => setNotif('')} />
+  </>
+);}
