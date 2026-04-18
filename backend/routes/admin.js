@@ -104,11 +104,21 @@ router.get('/wishes', authAdmin, async (req, res) => {
 router.delete('/photos/:id', authAdmin, async (req, res) => {
   try {
     const photo = await Image.findById(req.params.id);
-    if (!photo) return res.status(404).json({ error: 'Not found' });
-    await cloudinary.uploader.destroy(photo.publicId);
+
+    if (!photo) {
+      return res.status(404).json({ error: 'Not found' });
+    }
+
+    // Only delete from Cloudinary if publicId exists
+    if (photo.publicId) {
+      await cloudinary.uploader.destroy(photo.publicId);
+    }
+
     await photo.deleteOne();
+
     res.json({ success: true });
   } catch (err) {
+    console.error("DELETE ERROR:", err);
     res.status(500).json({ error: err.message });
   }
 });
