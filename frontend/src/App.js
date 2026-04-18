@@ -294,21 +294,28 @@ function Media({ notify }) {
     event.target.value = '';
   };
 
-  const submitVideo = async () => {
-    if (!videoForm.driveUrl.trim()) {
-      notify('Please paste a video link.');
-      return;
-    }
+const submitVideo = async () => {
+  if (!videoForm.driveUrl.trim()) {
+    notify('Please paste a video link.');
+    return;
+  }
 
-    try {
-      await api.submitVideo(videoForm);
-      notify('Video link submitted.');
-      setVideoForm({ driveUrl: '', title: '', uploadedBy: '', category: 'all' });
-      loadVideos();
-    } catch (error) {
-      notify(error.response?.data?.error || 'Video submit failed.');
-    }
-  };
+  try {
+    await api.submitVideo({
+   driveUrl: videoForm.driveUrl,
+   title: videoForm.title,
+   uploadedBy: videoForm.uploadedBy,
+   category: videoForm.category
+ });
+
+    notify('Video link submitted.');
+    setVideoForm({ driveUrl: '', title: '', uploadedBy: '', category: 'all' });
+    loadVideos();
+
+  } catch (error) {
+    notify(error.response?.data?.error || 'Video submit failed.');
+  }
+};
 const handleDelete = async (id) => {
   if (!window.confirm("Delete this photo?")) return;
 
